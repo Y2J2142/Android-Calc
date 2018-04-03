@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.EvaluatorException;
 import org.mozilla.javascript.ScriptableObject;
 
 public class SimpleCalc extends AppCompatActivity {
@@ -204,7 +205,9 @@ public class SimpleCalc extends AppCompatActivity {
                 try{
                     ScriptableObject scope = rhino.initStandardObjects();
                     textView.setText(rhino.evaluateString(scope, textView.getText().toString(), "JavaScript", 1, null).toString());
-                } finally {
+                }catch (EvaluatorException e){textView.setText("Invalid input");}
+
+                finally {
                     Context.exit();
                 }
             }
