@@ -12,6 +12,7 @@ public class MainMenu extends AppCompatActivity {
     private Button buttonSimple;
     private Button buttonScientific;
     private Button buttonAbout;
+    private Button buttonExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class MainMenu extends AppCompatActivity {
         buttonSimple = findViewById(R.id.buttonSimple);
         buttonScientific = findViewById(R.id.buttonScientific);
         buttonAbout = findViewById(R.id.buttonAbout);
-
+        buttonExit = findViewById(R.id.buttonExit);
         buttonSimple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +39,13 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
+        buttonExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
 
     }
 }
