@@ -46,6 +46,13 @@ public class MainMenu extends AppCompatActivity {
                 System.exit(0);
             }
         });
+        buttonAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this, About.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

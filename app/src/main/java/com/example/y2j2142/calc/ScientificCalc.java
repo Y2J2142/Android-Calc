@@ -193,42 +193,42 @@ public class ScientificCalc extends AppCompatActivity {
         bsin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.append("sin");
+                textView.append("sin(");
             }
         });
 
         bcos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.append("cos");
+                textView.append("cos(");
             }
         });
 
         bln.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.append("ln");
+                textView.append("ln(");
             }
         });
 
         blog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.append("log");
+                textView.append("log(");
             }
         });
 
         bpow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.append("pow");
+                textView.append("pow(");
             }
         });
 
         btan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.append("tan");
+                textView.append("tan(");
             }
         });
 
@@ -248,7 +248,7 @@ public class ScientificCalc extends AppCompatActivity {
         bsqrt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.append("\u221a");
+                textView.append("\u221a(");
             }
         });
 
@@ -265,17 +265,21 @@ public class ScientificCalc extends AppCompatActivity {
                 rhino.setOptimizationLevel(-1);
                 String temp = textView.getText().toString();
                 temp = temp.replaceAll("\u221a", "Math.sqrt");
-                temp = temp.replaceAll("ln", "Math.log");
-                temp = temp.replaceAll("log", "Math.log10");
-                temp = temp.replaceAll("pow", "Math.pow");
+                temp = temp.replaceAll("log", "Math.log");
+                temp = temp.replaceAll("ln", "Math.Id_log10");
+                temp = temp.replaceAll("pow", "Math.exp");
                 temp = temp.replaceAll("sin", "Math.sin");
                 temp = temp.replaceAll("cos", "Math.cos");
                 temp = temp.replaceAll("tan", "Math.tan");
+                temp = temp.replaceAll("Math.Math.", "Math.");
 
                 Log.d("test", temp);
                 try{
                     ScriptableObject scope = rhino.initStandardObjects();
-                    textView.setText(rhino.evaluateString(scope, temp, "JavaScript", 1, null).toString());
+                    temp = rhino.evaluateString(scope, temp, "JavaScript", 1, null).toString();
+                    if(temp.matches("(.*)Undefined(.*)") || temp.matches("(.*)NaN(.*)"))
+                        temp = "Invalid input";
+                    textView.setText(temp);
                 }catch (EvaluatorException e){textView.setText("Invalid input");}
 
                 finally {
